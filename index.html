@@ -1194,7 +1194,7 @@
         // Save school data
         async function saveSchool() {
             const index = parseInt(document.getElementById('editIndex').value);
-            const type = document.getElementById('editType').value;
+            const type = document.getElementById('editType').value; // 'city' or 'district'
             const name = document.getElementById('editName').value.trim();
             const plan = parseInt(document.getElementById('editPlan').value);
             const website = document.getElementById('editWebsite').value.trim();
@@ -1212,16 +1212,18 @@
                 if (type === 'city') {
                     citySchools[index] = { name, plan, website };
                     await saveToJsonFile(citySchools, 'city_schools.json', 'city');
-                    // Re-render with filter
-                    filterCitySchools();
                 } else {
                     const district = document.getElementById('editDistrict').value;
                     districtSchools[index] = { district, name, plan, website };
                     await saveToJsonFile(districtSchools, 'district_schools.json', 'district');
-                    // Re-render with current filter
-                    filterDistrictSchools();
                 }
+
+                // 重新合并 allSchools 并刷新
+                allSchools = [...citySchools.map(s => ({ ...s, level: 'city' })),
+                              ...districtSchools.map(s => ({ ...s, level: 'district' }))];
+                filterSchools();
                 closeEditModal();
+
             } catch (error) {
                 console.error('Save failed:', error);
                 alert('保存失败: ' + error.message);
