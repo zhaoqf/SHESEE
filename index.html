@@ -1079,31 +1079,36 @@
             });
         });
 
-        // Render city schools
-        function renderCitySchools(schools) {
-            const container = document.getElementById('citySchools');
-            const noResults = document.getElementById('cityNoResults');
-            const stats = document.getElementById('cityStats');
+        // Unified render function for all schools
+        function renderSchools(schools) {
+            const tbody = document.getElementById('experimentalSchools');
+            const noResults = document.getElementById('experimentalNoResults');
+            const stats = document.getElementById('experimentalStats');
 
-            if (schools.length === 0) {
-                container.innerHTML = '';
+            if (!schools || schools.length === 0) {
+                tbody.innerHTML = '';
                 noResults.style.display = 'block';
-                stats.textContent = '';
+                stats.textContent = '共 0 所学校';
                 return;
             }
 
             noResults.style.display = 'none';
             stats.textContent = `共 ${schools.length} 所学校`;
 
-            container.innerHTML = schools.map((school, idx) => `
-                <tr data-name="${school.name}">
-                    <td>${idx + 1}</td>
+            tbody.innerHTML = schools.map((school, index) => {
+                const levelText = school.level === 'city' ? '市级' : '区级';
+                const levelClass = school.level === 'city' ? 'level-city' : 'level-district';
+
+                return `<tr>
+                    <td>${index + 1}</td>
+                    <td><span class="level-tag ${levelClass}">${levelText}</span></td>
+                    <td>${school.district || '-'}</td>
                     <td>${school.name}</td>
-                    <td><span class="badge">${school.plan}</span></td>
-                    <td>${school.website && school.website !== '未知' ? `<a href="${school.website}" target="_blank" rel="noopener" class="website-link">${school.website}</a>` : '未知'}</td>
-                    <td><button class="edit-btn" onclick="openEditModal('${school.name}', 'city')">编辑</button></td>
-                </tr>
-            `).join('');
+                    <td>${school.plan || '-'}</td>
+                    <td>${school.website ? `<a href="${school.website}" target="_blank">访问</a>` : '-'}</td>
+                    <td><button class="edit-btn" onclick="openEditModal('${school.name}', '${school.level}')">编辑</button></td>
+                </tr>`;
+            }).join('');
         }
 
         // Render timeline
@@ -1117,41 +1122,13 @@
             `).join('');
         }
 
-        // Render district schools
-        function renderDistrictSchools(schools) {
-            const container = document.getElementById('districtSchools');
-            const noResults = document.getElementById('districtNoResults');
-            const stats = document.getElementById('districtStats');
-
-            if (schools.length === 0) {
-                container.innerHTML = '';
-                noResults.style.display = 'block';
-                stats.textContent = '';
-                return;
-            }
-
-            noResults.style.display = 'none';
-            stats.textContent = `共 ${schools.length} 所学校`;
-
-            container.innerHTML = schools.map((school, idx) => `
-                <tr data-name="${school.name}">
-                    <td>${idx + 1}</td>
-                    <td>${school.district}</td>
-                    <td>${school.name}</td>
-                    <td><span class="badge">${school.plan}</span></td>
-                    <td>${school.website && school.website !== '未知' ? `<a href="${school.website}" target="_blank" rel="noopener" class="website-link">${school.website}</a>` : '未知'}</td>
-                    <td><button class="edit-btn" onclick="openEditModal('${school.name}', 'district')">编辑</button></td>
-                </tr>
-            `).join('');
-        }
-
         // Filter functions
         function filterCitySchools() {
             const searchText = document.getElementById('citySearchInput').value.toLowerCase();
             const filtered = citySchools.filter(school =>
                 school.name.toLowerCase().includes(searchText)
             );
-            renderCitySchools(applyCitySort(filtered));
+            renderSchools(applyCitySort(filtered));
         }
 
         function filterDistrictSchools() {
@@ -1165,7 +1142,7 @@
                 return matchSearch && matchDistrict;
             });
 
-            renderDistrictSchools(applyDistrictSort(filtered));
+            renderSchools(applyDistrictSort(filtered));
         }
 
         function applyCitySort(data) {
@@ -1360,7 +1337,7 @@
                 timelineData = timelineResult;
 
                 // Render data
-                renderCitySchools(applyCitySort(citySchools));
+                renderSchools(applyCitySort(citySchools));
                 renderTimeline();
                 // Apply current filter (from dropdown or map click)
                 filterDistrictSchools();
