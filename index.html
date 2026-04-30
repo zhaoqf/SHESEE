@@ -817,25 +817,28 @@
     <div class="container">
         <div class="tabs">
             <button class="tab-btn active" data-tab="dashboard">数据看板</button>
-            <button class="tab-btn" data-tab="district">区级实验学校</button>
-            <button class="tab-btn" data-tab="city">市级试验学校</button>
+            <button class="tab-btn" data-tab="experimental">实验学校</button>
             <button class="tab-btn" data-tab="timeline">工作时间表</button>
         </div>
 
-        <!-- 区级学校 -->
-        <div class="tab-content" id="district">
-            <h2 class="section-title">区级实验学校</h2>
+        <div class="tab-content" id="experimental">
+            <h2 class="section-title">实验学校</h2>
 
             <div class="filter-bar">
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="搜索学校名称...">
+                    <input type="text" id="experimentalSearchInput" placeholder="搜索学校名称...">
                 </div>
-                <select class="district-select" id="districtSelect">
+                <select class="level-select" id="levelSelect">
+                    <option value="">全部级别</option>
+                    <option value="district">区级</option>
+                    <option value="city">市级</option>
+                </select>
+                <select class="district-select" id="experimentalDistrictSelect">
                     <option value="">全部区域</option>
                     <option value="东城区">东城区</option>
                     <option value="西城区">西城区</option>
                     <option value="朝阳区">朝阳区</option>
-                    <option value="海淀区" selected>海淀区</option>
+                    <option value="海淀区">海淀区</option>
                     <option value="丰台区">丰台区</option>
                     <option value="石景山区">石景山区</option>
                     <option value="门头沟区">门头沟区</option>
@@ -853,51 +856,24 @@
                 </select>
             </div>
 
-            <div class="stats" id="districtStats"></div>
+            <div class="stats" id="experimentalStats"></div>
             <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
                             <th>序号</th>
+                            <th>级别</th>
                             <th>区域</th>
                             <th>学校名称</th>
-                            <th class="sortable" onclick="sortDistrictSchools('plan')">培养计划</th>
+                            <th class="sortable" onclick="sortSchools('plan')">培养计划</th>
                             <th>官方网站</th>
                             <th>操作</th>
                         </tr>
                     </thead>
-                    <tbody id="districtSchools"></tbody>
+                    <tbody id="experimentalSchools"></tbody>
                 </table>
             </div>
-            <div class="no-results" id="districtNoResults" style="display:none;">未找到符合条件的学校</div>
-        </div>
-
-        <!-- 市级学校 -->
-        <div class="tab-content" id="city">
-            <h2 class="section-title">市级试验学校</h2>
-
-            <div class="filter-bar">
-                <div class="search-box">
-                    <input type="text" id="citySearchInput" placeholder="搜索学校名称...">
-                </div>
-            </div>
-
-            <div class="stats" id="cityStats"></div>
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>学校名称</th>
-                            <th class="sortable" onclick="sortCitySchools('plan')">培养计划</th>
-                            <th>官方网站</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody id="citySchools"></tbody>
-                </table>
-            </div>
-            <div class="no-results" id="cityNoResults" style="display:none;">未找到符合条件的学校</div>
+            <div class="no-results" id="experimentalNoResults" style="display:none;">未找到符合条件的学校</div>
         </div>
 
         <!-- 时间表 -->
