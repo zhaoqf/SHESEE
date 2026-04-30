@@ -1020,35 +1020,18 @@
         };
 
         // Sort state
-        let citySortField = null;
-        let citySortDir = null;
-        let districtSortField = null;
-        let districtSortDir = null;
+        let currentSortField = null;
+        let currentSortDirection = null;
 
-        // Sort functions for city schools
-        function sortCitySchools(field) {
-            if (citySortField === field) {
-                citySortDir = citySortDir === 'asc' ? 'desc' : 'asc';
+        // Unified sort function
+        function sortSchools(field) {
+            if (currentSortField === field) {
+                currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
             } else {
-                citySortField = field;
-                citySortDir = 'asc';
+                currentSortField = field;
+                currentSortDirection = 'asc';
             }
-            updateSortIndicators('city', field, citySortDir);
-            // Re-apply current filter with sort
-            filterCitySchools();
-        }
-
-        // Sort functions for district schools
-        function sortDistrictSchools(field) {
-            if (districtSortField === field) {
-                districtSortDir = districtSortDir === 'asc' ? 'desc' : 'asc';
-            } else {
-                districtSortField = field;
-                districtSortDir = 'asc';
-            }
-            updateSortIndicators('district', field, districtSortDir);
-            // Re-apply current filter with sort
-            filterDistrictSchools();
+            filterSchools();
         }
 
         function updateSortIndicators(type, field, dir) {
@@ -1122,47 +1105,44 @@
             `).join('');
         }
 
-        // Filter functions
-        function filterCitySchools() {
-            const searchText = document.getElementById('citySearchInput').value.toLowerCase();
-            const filtered = citySchools.filter(school =>
-                school.name.toLowerCase().includes(searchText)
-            );
-            renderSchools(applyCitySort(filtered));
+        // Filter and sort functions
+        function filterSchools() {
+            const searchText = document.getElementById('experimentalSearchInput').value.toLowerCase();
+            const levelFilter = document.getElementById('levelSelect').value;
+            const districtFilter = document.getElementById('experimentalDistrictSelect').value;
+
+            let filtered = [...allSchools];
+
+            // 级别筛选
+            if (levelFilter) {
+                filtered = filtered.filter(s => s.level === levelFilter);
+            }
+
+            // 区域筛选（仅对区级有效，市级无district字段）
+            if (districtFilter && (levelFilter === '' || levelFilter === 'district')) {
+                filtered = filtered.filter(s => s.district === districtFilter);
+            }
+
+            // 搜索筛选
+            if (searchText) {
+                filtered = filtered.filter(s => s.name.toLowerCase().includes(searchText));
+            }
+
+            renderSchools(applySort(filtered));
         }
 
-        function filterDistrictSchools() {
-            const searchText = document.getElementById('searchInput').value.toLowerCase();
-            // Use global selectedDistrict if set (from map click), otherwise use dropdown
-            const effectiveDistrict = selectedDistrict || document.getElementById('districtSelect').value;
+        function applySort(data) {
+            if (!currentSortField) return data;
 
-            const filtered = districtSchools.filter(school => {
-                const matchSearch = school.name.toLowerCase().includes(searchText);
-                const matchDistrict = !effectiveDistrict || school.district === effectiveDistrict;
-                return matchSearch && matchDistrict;
-            });
-
-            renderSchools(applyDistrictSort(filtered));
-        }
-
-        function applyCitySort(data) {
-            if (!citySortField) return data;
             return [...data].sort((a, b) => {
-                const aVal = a[citySortField];
-                const bVal = b[citySortField];
-                if (aVal < bVal) return citySortDir === 'asc' ? -1 : 1;
-                if (aVal > bVal) return citySortDir === 'asc' ? 1 : -1;
-                return 0;
-            });
-        }
+                let valA = a[currentSortField];
+                let valB = b[currentSortField];
 
-        function applyDistrictSort(data) {
-            if (!districtSortField) return data;
-            return [...data].sort((a, b) => {
-                const aVal = a[districtSortField];
-                const bVal = b[districtSortField];
-                if (aVal < bVal) return districtSortDir === 'asc' ? -1 : 1;
-                if (aVal > bVal) return districtSortDir === 'asc' ? 1 : -1;
+                if (typeof valA === 'string') valA = valA.toLowerCase();
+                if (typeof valB === 'string') valB = valB.toLowerCase();
+
+                if (valA < valB) return currentSortDirection === 'asc' ? -1 : 1;
+                if (valA > valB) return currentSortDirection === 'asc' ? 1 : -1;
                 return 0;
             });
         }
