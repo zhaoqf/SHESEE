@@ -1319,10 +1319,10 @@
                 timelineData = timelineResult;
 
                 // Render data
-                renderSchools(applyCitySort(citySchools));
+                renderSchools(applySort(allSchools));
                 renderTimeline();
                 // Apply current filter (from dropdown or map click)
-                filterDistrictSchools();
+                filterSchools();
 
                 // Update dashboard if initialized (map container visible)
                 const mapContainer = document.getElementById('mapContainer');
@@ -1625,7 +1625,7 @@
             }
 
             // Apply filter
-            filterDistrictSchools();
+            filterSchools();
 
             // Switch to district tab
             switchTab('district');
