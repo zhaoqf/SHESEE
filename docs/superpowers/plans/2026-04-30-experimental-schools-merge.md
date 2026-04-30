@@ -411,3 +411,19 @@ document.getElementById('experimentalDistrictSelect').addEventListener('change',
 - [ ] **Step 6: 验证编辑保存**
 
 测试编辑区级和市级学校后，数据是否正确保存到对应JSON文件
+
+---
+
+## 实际实现的Bug修复
+
+以下Bug在实施过程中被发现并修复：
+
+| 问题 | 修复 |
+|------|------|
+| `switchTab('district')` 调用错误 | 该调用已移除，实验学校Tab默认不激活 |
+| `allSchools` 全局变量未声明 | 添加 `let allSchools = [];` 全局声明 |
+| `window.allSchools` vs 局部变量不一致 | 统一使用局部变量 |
+| `showLoading/showError` 引用旧元素ID | 更新为 `experimentalSchools` |
+| 官方网站列显示逻辑错误 | 修复为检查 `!== '未知'` 并显示网址文字 |
+| `selectDistrictFromMap` 引用旧dropdown ID | 更新为 `experimentalDistrictSelect` 并添加Tab跳转 |
+| `renderSchools` 链接标签语法错误 | 已修复为 `</a>` |
