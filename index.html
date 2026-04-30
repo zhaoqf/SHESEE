@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北京市"1+3"培养实验</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4a90d9 0%, #67b26f 100%);
+            color: white;
+            padding: 24px 20px;
+            text-align: center;
+            border-radius: 0 0 24px 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(74, 144, 217, 0.3);
+        }
+
+        .header h1 {
+            font-size: 1.6em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            background: white;
+            padding: 6px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            background: #f0f5fa;
+            color: #4a90d9;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #4a90d9, #67b26f);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            color: #4a90d9;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8f2fb;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::before {
+            content: "";
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(135deg, #4a90d9, #67b26f);
+            border-radius: 2px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(135deg, #4a90d9, #67b26f);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -26px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border: 3px solid #4a90d9;
+            border-radius: 50%;
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: #4a90d9;
+            margin-bottom: 4px;
+        }
+
+        .timeline-content {
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            border: 2px solid #e8f2fb;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #4a90d9;
+        }
+
+        .search-box::before {
+            content: "🔍";
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+        }
+
+        .district-select {
+            padding: 10px 20px;
+            border: 2px solid #e8f2fb;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            min-width: 150px;
+        }
+
+        .district-select:focus {
+            outline: none;
+            border-color: #4a90d9;
+        }
+
+        .stats {
+            margin-bottom: 12px;
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f8fafc;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #4a90d9;
+            border-bottom: 2px solid #e8f2fb;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f5fa;
+        }
+
+        td a {
+            color: #4a90d9;
+            text-decoration: none;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #4a90d9, #67b26f);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-size: 0.85em;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.6em;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+            }
+
+            .district-select {
+                width: 100%;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+
+        .no-results::before {
+            content: "📭";
+            font-size: 3em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Edit Button */
+        .edit-btn {
+            padding: 4px 12px;
+            border: 1px solid #4a90d9;
+            background: white;
+            color: #4a90d9;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .edit-btn:hover {
+            background: #4a90d9;
+            color: white;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e8f2fb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: #4a90d9;
+            font-size: 1.1em;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #888;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e8f2fb;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4a90d9;
+        }
+
+        .modal-footer {
+            padding: 16px 20px;
+            border-top: 1px solid #e8f2fb;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .btn-cancel {
+            padding: 8px 20px;
+            border: 1px solid #ddd;
+            background: white;
+            color: #666;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-cancel:hover {
+            background: #f5f5f5;
+        }
+
+        .btn-save {
+            padding: 8px 20px;
+            border: none;
+            background: linear-gradient(135deg, #4a90d9, #67b26f);
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-save:hover {
+            opacity: 0.9;
+        }
+
+        .btn-save:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .website-link {
+            word-break: break-all;
+            font-size: 13px;
+        }
+
+        th.sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th.sortable:hover {
+            background: #e8f2fb;
+        }
+
+        th.sortable::after {
+            content: " ⇅";
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        th.sortable.asc::after {
+            content: " ↑";
+            color: #4a90d9;
+        }
+
+        th.sortable.desc::after {
+            content: " ↓";
+            color: #4a90d9;
+        }
+
+        /* Dashboard Styles */
+        .year-selector-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .year-select {
+            padding: 8px 16px;
+            border: 2px solid #e8f2fb;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            background: white;
+            cursor: pointer;
+            min-width: 120px;
+        }
+
+        .year-select:focus {
+            outline: none;
+            border-color: #4a90d9;
+        }
+
+        .year-hint {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .stat-pills {
+            display: flex;
+            gap: 16px;
+            margin-left: auto;
+        }
+
+        .stat-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(74, 144, 217, 0.15);
+        }
+
+        .stat-pill-label {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .stat-pill-value {
+            color: #4a90d9;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 20px;
+            min-height: 500px;
+            overflow: hidden;
+        }
+
+        .dashboard-left {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            overflow: hidden;
+            min-width: 0;
+            width: 100%;
+            box-sizing: border-box;
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .ranking-card {
+            flex: 1;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        .ranking-card-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e8f2fb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ranking-card-title {
+            font-weight: 600;
+            color: #4a90d9;
+            font-size: 14px;
+        }
+
+        .ranking-card-subtitle {
+            font-size: 11px;
+            color: #888;
+        }
+
+        .dashboard-left .stat-card {
+            flex: 1;
+            background: linear-gradient(135deg, #4a90d9 0%, #67b26f 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 0;
+            box-sizing: border-box;
+            min-width: 0;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        .dashboard-center {
+            background: #f8fafc;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+        }
+
+        .dashboard-right {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-width: 0;
+            width: 100%;
+            box-sizing: border-box;
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .placeholder-card {
+            flex: 1;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #e8f2fb;
+            overflow: hidden;
+            min-height: 0;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        .placeholder-text {
+            color: #aaa;
+            font-size: 14px;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .ranking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .ranking-title {
+            font-weight: 600;
+            color: #4a90d9;
+            font-size: 14px;
+        }
+
+        .ranking-subtitle {
+            font-size: 11px;
+            color: #888;
+            margin-top: 2px;
+        }
+
+        .ranking-toggle {
+            display: flex;
+            gap: 4px;
+            background: #e8f2fb;
+            padding: 3px;
+            border-radius: 6px;
+        }
+
+        .toggle-btn {
+            padding: 4px 10px;
+            border: none;
+            background: transparent;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn.active {
+            background: white;
+            color: #4a90d9;
+            font-weight: 500;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .ranking-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e8f2fb;
+            font-size: 13px;
+        }
+
+        .ranking-item:last-child {
+            border-bottom: none;
+        }
+
+        .ranking-rank {
+            width: 24px;
+            height: 24px;
+            background: #e8f2fb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #4a90d9;
+            margin-right: 10px;
+        }
+
+        .ranking-rank.top3 {
+            background: linear-gradient(135deg, #4a90d9, #67b26f);
+            color: white;
+        }
+
+        .ranking-district {
+            flex: 1;
+            color: #333;
+        }
+
+        .ranking-value {
+            font-weight: 600;
+            color: #4a90d9;
+        }
+
+        .no-data-hint {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+        }
+
+        .no-data-hint::before {
+            content: "📊";
+            font-size: 3em;
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-left {
+                flex-direction: row;
+            }
+
+            .stat-card {
+                flex: 1;
+            }
+
+            .dashboard-right {
+                display: none;
+            }
+
+            .stat-pills {
+                margin-left: 0;
+                margin-top: 12px;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.6em;
+            }
+
+            .dashboard-left {
+                flex-direction: column;
+            }
+
+            .map-container {
+                min-height: 350px;
+            }
+
+            .year-selector-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .stat-pills {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>2025年"1+3"培养实验</h1>
+        <p>北京市市级与区级实验学校招生培养计划</p>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="dashboard">数据看板</button>
+            <button class="tab-btn" data-tab="district">区级实验学校</button>
+            <button class="tab-btn" data-tab="city">市级试验学校</button>
+            <button class="tab-btn" data-tab="timeline">工作时间表</button>
+        </div>
+
+        <!-- 区级学校 -->
+        <div class="tab-content" id="district">
+            <h2 class="section-title">区级实验学校</h2>
+
+            <div class="filter-bar">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="搜索学校名称...">
+                </div>
+                <select class="district-select" id="districtSelect">
+                    <option value="">全部区域</option>
+                    <option value="东城区">东城区</option>
+                    <option value="西城区">西城区</option>
+                    <option value="朝阳区">朝阳区</option>
+                    <option value="海淀区" selected>海淀区</option>
+                    <option value="丰台区">丰台区</option>
+                    <option value="石景山区">石景山区</option>
+                    <option value="门头沟区">门头沟区</option>
+                    <option value="房山区">房山区</option>
+                    <option value="通州区">通州区</option>
+                    <option value="顺义区">顺义区</option>
+                    <option value="昌平区">昌平区</option>
+                    <option value="大兴区">大兴区</option>
+                    <option value="平谷区">平谷区</option>
+                    <option value="怀柔区">怀柔区</option>
+                    <option value="密云区">密云区</option>
+                    <option value="延庆区">延庆区</option>
+                    <option value="燕山">燕山</option>
+                    <option value="经开区">经开区</option>
+                </select>
+            </div>
+
+            <div class="stats" id="districtStats"></div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>区域</th>
+                            <th>学校名称</th>
+                            <th class="sortable" onclick="sortDistrictSchools('plan')">培养计划</th>
+                            <th>官方网站</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="districtSchools"></tbody>
+                </table>
+            </div>
+            <div class="no-results" id="districtNoResults" style="display:none;">未找到符合条件的学校</div>
+        </div>
+
+        <!-- 市级学校 -->
+        <div class="tab-content" id="city">
+            <h2 class="section-title">市级试验学校</h2>
+
+            <div class="filter-bar">
+                <div class="search-box">
+                    <input type="text" id="citySearchInput" placeholder="搜索学校名称...">
+                </div>
+            </div>
+
+            <div class="stats" id="cityStats"></div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>学校名称</th>
+                            <th class="sortable" onclick="sortCitySchools('plan')">培养计划</th>
+                            <th>官方网站</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="citySchools"></tbody>
+                </table>
+            </div>
+            <div class="no-results" id="cityNoResults" style="display:none;">未找到符合条件的学校</div>
+        </div>
+
+        <!-- 时间表 -->
+        <div class="tab-content" id="timeline">
+            <h2 class="section-title">工作时间表</h2>
+            <div class="timeline" id="timelineContent"></div>
+        </div>
+
+        <!-- 数据看板 -->
+        <div class="tab-content active" id="dashboard">
+            <div class="year-selector-bar">
+                <select id="yearSelect" class="year-select">
+                    <option value="">加载中...</option>
+                </select>
+                <span class="year-hint">选择年度查看数据分布</span>
+                <div class="stat-pills">
+                    <div class="stat-pill">
+                        <span class="stat-pill-label">全市学校总数</span>
+                        <span class="stat-pill-value" id="totalSchools">-</span>
+                    </div>
+                    <div class="stat-pill">
+                        <span class="stat-pill-label">总招生计划</span>
+                        <span class="stat-pill-value" id="totalPlan">-</span>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-grid">
+                <div class="dashboard-left">
+                    <div class="ranking-card">
+                        <div class="ranking-card-header">
+                            <span class="ranking-card-title">学校排名</span>
+                            <span class="ranking-card-subtitle">按招生人数</span>
+                        </div>
+                        <div class="ranking-list" id="schoolRankingList"></div>
+                    </div>
+                </div>
+                <div class="dashboard-center">
+                    <div id="mapContainer" class="map-container"></div>
+                </div>
+                <div class="dashboard-right">
+                    <div class="ranking-header">
+                        <span class="ranking-title">各区排名</span>
+                        <div class="ranking-toggle">
+                            <button class="toggle-btn active" data-mode="school" onclick="switchRankingMode('school')">学校数</button>
+                            <button class="toggle-btn" data-mode="plan" onclick="switchRankingMode('plan')">计划数</button>
+                        </div>
+                    </div>
+                    <div class="ranking-list" id="rankingList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>2025年"1+3"培养实验 · 数据来源：北京市教育委员会</p>
+        <p style="margin-top:8px;font-size:12px;color:#aaa;">* 编辑功能仅支持 Chrome/Edge 浏览器</p>
+    </footer>
+
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">编辑学校信息</h3>
+                <button class="modal-close" onclick="closeEditModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editIndex">
+                <input type="hidden" id="editType">
+                <div class="form-group" id="districtFormGroup" style="display:none;">
+                    <label>区</label>
+                    <select id="editDistrict">
+                        <option value="东城区">东城区</option>
+                        <option value="西城区">西城区</option>
+                        <option value="朝阳区">朝阳区</option>
+                        <option value="海淀区">海淀区</option>
+                        <option value="丰台区">丰台区</option>
+                        <option value="石景山区">石景山区</option>
+                        <option value="门头沟区">门头沟区</option>
+                        <option value="房山区">房山区</option>
+                        <option value="通州区">通州区</option>
+                        <option value="顺义区">顺义区</option>
+                        <option value="昌平区">昌平区</option>
+                        <option value="大兴区">大兴区</option>
+                        <option value="平谷区">平谷区</option>
+                        <option value="怀柔区">怀柔区</option>
+                        <option value="密云区">密云区</option>
+                        <option value="延庆区">延庆区</option>
+                        <option value="燕山">燕山</option>
+                        <option value="经开区">经开区</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>学校名称</label>
+                    <input type="text" id="editName">
+                </div>
+                <div class="form-group">
+                    <label>培养计划</label>
+                    <input type="number" id="editPlan">
+                </div>
+                <div class="form-group">
+                    <label>官方网站</label>
+                    <input type="text" id="editWebsite" placeholder="http://...">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeEditModal()">取消</button>
+                <button class="btn-save" id="saveBtn" onclick="saveSchool()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data variables (loaded dynamically)
+        let citySchools = [];
+        let districtSchools = [];
+        let timelineData = [];
+        let currentYear = '2025';
+        let availableYears = [];
+
+        // Dashboard variables
+        let mapChart = null;
+        let selectedDistrict = null;
+
+        // District name mapping (JSON district names -> GeoJSON names)
+        const districtNameMap = {
+            '东城区': '东城区',
+            '西城区': '西城区',
+            '朝阳区': '朝阳区',
+            '海淀区': '海淀区',
+            '丰台区': '丰台区',
+            '石景山区': '石景山区',
+            '门头沟区': '门头沟区',
+            '房山区': '房山区',
+            '通州区': '通州区',
+            '顺义区': '顺义区',
+            '昌平区': '昌平区',
+            '大兴区': '大兴区',
+            '平谷区': '平谷区',
+            '怀柔区': '怀柔区',
+            '密云区': '密云区',
+            '延庆区': '延庆区',
+            '燕山': '',  // Not in standard GeoJSON
+            '经开区': ''  // Not in standard GeoJSON (北京经济技术开发区)
+        };
+
+        // Sort state
+        let citySortField = null;
+        let citySortDir = null;
+        let districtSortField = null;
+        let districtSortDir = null;
+
+        // Sort functions for city schools
+        function sortCitySchools(field) {
+            if (citySortField === field) {
+                citySortDir = citySortDir === 'asc' ? 'desc' : 'asc';
+            } else {
+                citySortField = field;
+                citySortDir = 'asc';
+            }
+            updateSortIndicators('city', field, citySortDir);
+            // Re-apply current filter with sort
+            filterCitySchools();
+        }
+
+        // Sort functions for district schools
+        function sortDistrictSchools(field) {
+            if (districtSortField === field) {
+                districtSortDir = districtSortDir === 'asc' ? 'desc' : 'asc';
+            } else {
+                districtSortField = field;
+                districtSortDir = 'asc';
+            }
+            updateSortIndicators('district', field, districtSortDir);
+            // Re-apply current filter with sort
+            filterDistrictSchools();
+        }
+
+        function updateSortIndicators(type, field, dir) {
+            document.querySelectorAll(`#${type} th.sortable`).forEach(th => {
+                th.classList.remove('asc', 'desc');
+            });
+            const th = document.querySelector(`#${type} th.sortable[onclick*="${field}"]`);
+            if (th) th.classList.add(dir);
+        }
+
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                const tabId = btn.dataset.tab;
+                document.getElementById(tabId).classList.add('active');
+
+                // If switching to dashboard tab, update stats immediately and render map
+                if (tabId === 'dashboard') {
+                    updateStatistics();
+                    // Use requestAnimationFrame to ensure DOM is painted
+                    requestAnimationFrame(() => {
+                        renderMap();
+                    });
+                }
+            });
+        });
+
+        // Render city schools
+        function renderCitySchools(schools) {
+            const container = document.getElementById('citySchools');
+            const noResults = document.getElementById('cityNoResults');
+            const stats = document.getElementById('cityStats');
+
+            if (schools.length === 0) {
+                container.innerHTML = '';
+                noResults.style.display = 'block';
+                stats.textContent = '';
+                return;
+            }
+
+            noResults.style.display = 'none';
+            stats.textContent = `共 ${schools.length} 所学校`;
+
+            container.innerHTML = schools.map((school, idx) => `
+                <tr data-name="${school.name}">
+                    <td>${idx + 1}</td>
+                    <td>${school.name}</td>
+                    <td><span class="badge">${school.plan}</span></td>
+                    <td>${school.website && school.website !== '未知' ? `<a href="${school.website}" target="_blank" rel="noopener" class="website-link">${school.website}</a>` : '未知'}</td>
+                    <td><button class="edit-btn" onclick="openEditModal('${school.name}', 'city')">编辑</button></td>
+                </tr>
+            `).join('');
+        }
+
+        // Render timeline
+        function renderTimeline() {
+            const container = document.getElementById('timelineContent');
+            container.innerHTML = timelineData.map(item => `
+                <div class="timeline-item">
+                    <div class="timeline-date">${item.date}</div>
+                    <div class="timeline-content">${item.content}</div>
+                </div>
+            `).join('');
+        }
+
+        // Render district schools
+        function renderDistrictSchools(schools) {
+            const container = document.getElementById('districtSchools');
+            const noResults = document.getElementById('districtNoResults');
+            const stats = document.getElementById('districtStats');
+
+            if (schools.length === 0) {
+                container.innerHTML = '';
+                noResults.style.display = 'block';
+                stats.textContent = '';
+                return;
+            }
+
+            noResults.style.display = 'none';
+            stats.textContent = `共 ${schools.length} 所学校`;
+
+            container.innerHTML = schools.map((school, idx) => `
+                <tr data-name="${school.name}">
+                    <td>${idx + 1}</td>
+                    <td>${school.district}</td>
+                    <td>${school.name}</td>
+                    <td><span class="badge">${school.plan}</span></td>
+                    <td>${school.website && school.website !== '未知' ? `<a href="${school.website}" target="_blank" rel="noopener" class="website-link">${school.website}</a>` : '未知'}</td>
+                    <td><button class="edit-btn" onclick="openEditModal('${school.name}', 'district')">编辑</button></td>
+                </tr>
+            `).join('');
+        }
+
+        // Filter functions
+        function filterCitySchools() {
+            const searchText = document.getElementById('citySearchInput').value.toLowerCase();
+            const filtered = citySchools.filter(school =>
+                school.name.toLowerCase().includes(searchText)
+            );
+            renderCitySchools(applyCitySort(filtered));
+        }
+
+        function filterDistrictSchools() {
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            // Use global selectedDistrict if set (from map click), otherwise use dropdown
+            const effectiveDistrict = selectedDistrict || document.getElementById('districtSelect').value;
+
+            const filtered = districtSchools.filter(school => {
+                const matchSearch = school.name.toLowerCase().includes(searchText);
+                const matchDistrict = !effectiveDistrict || school.district === effectiveDistrict;
+                return matchSearch && matchDistrict;
+            });
+
+            renderDistrictSchools(applyDistrictSort(filtered));
+        }
+
+        function applyCitySort(data) {
+            if (!citySortField) return data;
+            return [...data].sort((a, b) => {
+                const aVal = a[citySortField];
+                const bVal = b[citySortField];
+                if (aVal < bVal) return citySortDir === 'asc' ? -1 : 1;
+                if (aVal > bVal) return citySortDir === 'asc' ? 1 : -1;
+                return 0;
+            });
+        }
+
+        function applyDistrictSort(data) {
+            if (!districtSortField) return data;
+            return [...data].sort((a, b) => {
+                const aVal = a[districtSortField];
+                const bVal = b[districtSortField];
+                if (aVal < bVal) return districtSortDir === 'asc' ? -1 : 1;
+                if (aVal > bVal) return districtSortDir === 'asc' ? 1 : -1;
+                return 0;
+            });
+        }
+
+        // File handles for save operations
+        let cityFileHandle = null;
+        let districtFileHandle = null;
+
+        // Open edit modal
+        function openEditModal(name, type) {
+            const modal = document.getElementById('editModal');
+            const indexInput = document.getElementById('editIndex');
+            const typeInput = document.getElementById('editType');
+            const districtFormGroup = document.getElementById('districtFormGroup');
+            const nameInput = document.getElementById('editName');
+            const planInput = document.getElementById('editPlan');
+            const websiteInput = document.getElementById('editWebsite');
+            const districtSelect = document.getElementById('editDistrict');
+
+            typeInput.value = type;
+
+            let school;
+            let index;
+            if (type === 'city') {
+                index = citySchools.findIndex(s => s.name === name);
+                school = citySchools[index];
+                districtFormGroup.style.display = 'none';
+            } else {
+                index = districtSchools.findIndex(s => s.name === name);
+                school = districtSchools[index];
+                districtFormGroup.style.display = 'block';
+                districtSelect.value = school.district;
+            }
+
+            indexInput.value = index;
+            nameInput.value = school.name;
+            planInput.value = school.plan;
+            websiteInput.value = school.website || '';
+
+            modal.classList.add('active');
+        }
+
+        // Close edit modal
+        function closeEditModal() {
+            const modal = document.getElementById('editModal');
+            modal.classList.remove('active');
+        }
+
+        // Save school data
+        async function saveSchool() {
+            const index = parseInt(document.getElementById('editIndex').value);
+            const type = document.getElementById('editType').value;
+            const name = document.getElementById('editName').value.trim();
+            const plan = parseInt(document.getElementById('editPlan').value);
+            const website = document.getElementById('editWebsite').value.trim();
+
+            if (!name || isNaN(plan)) {
+                alert('请填写完整信息');
+                return;
+            }
+
+            const saveBtn = document.getElementById('saveBtn');
+            saveBtn.disabled = true;
+            saveBtn.textContent = '保存中...';
+
+            try {
+                if (type === 'city') {
+                    citySchools[index] = { name, plan, website };
+                    await saveToJsonFile(citySchools, 'city_schools.json', 'city');
+                    // Re-render with filter
+                    filterCitySchools();
+                } else {
+                    const district = document.getElementById('editDistrict').value;
+                    districtSchools[index] = { district, name, plan, website };
+                    await saveToJsonFile(districtSchools, 'district_schools.json', 'district');
+                    // Re-render with current filter
+                    filterDistrictSchools();
+                }
+                closeEditModal();
+            } catch (error) {
+                console.error('Save failed:', error);
+                alert('保存失败: ' + error.message);
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.textContent = '保存';
+            }
+        }
+
+        // Save to JSON file using File System Access API
+        async function saveToJsonFile(data, filename, type) {
+            let fileHandle;
+
+            if (type === 'city' && cityFileHandle) {
+                fileHandle = cityFileHandle;
+            } else if (type === 'district' && districtFileHandle) {
+                fileHandle = districtFileHandle;
+            } else {
+                // First save - need to get file handle from user
+                try {
+                    fileHandle = await window.showSaveFilePicker({
+                        suggestedName: filename,
+                        types: [{
+                            description: 'JSON File',
+                            accept: { 'application/json': ['.json'] }
+                        }]
+                    });
+
+                    if (type === 'city') {
+                        cityFileHandle = fileHandle;
+                    } else {
+                        districtFileHandle = fileHandle;
+                    }
+                } catch (error) {
+                    if (error.name === 'AbortError') {
+                        throw new Error('用户取消保存');
+                    }
+                    throw error;
+                }
+            }
+
+            const writable = await fileHandle.createWritable();
+            await writable.write(JSON.stringify(data, null, 2));
+            await writable.close();
+        }
+
+        // Show loading state
+        function showLoading() {
+            document.getElementById('citySchools').innerHTML = '<tr><td colspan="4" style="text-align:center;padding:40px;color:#888;">加载中...</td></tr>';
+            document.getElementById('districtSchools').innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;color:#888;">加载中...</td></tr>';
+            document.getElementById('timelineContent').innerHTML = '<div style="text-align:center;padding:40px;color:#888;">加载中...</div>';
+        }
+
+        // Show error state
+        function showError(message) {
+            document.getElementById('citySchools').innerHTML = `<tr><td colspan="4" style="text-align:center;padding:40px;color:#e74c3c;">${message}</td></tr>`;
+            document.getElementById('districtSchools').innerHTML = `<tr><td colspan="5" style="text-align:center;padding:40px;color:#e74c3c;">${message}</td></tr>`;
+            document.getElementById('timelineContent').innerHTML = `<div style="text-align:center;padding:40px;color:#e74c3c;">${message}</div>`;
+        }
+
+        // Load data from JSON files
+        async function loadData(year) {
+            year = year || currentYear;
+            showLoading();
+
+            try {
+                const [cityRes, districtRes, timelineRes] = await Promise.all([
+                    fetch(`data/${year}/city_schools.json`),
+                    fetch(`data/${year}/district_schools.json`),
+                    fetch(`data/${year}/timeline.json`)
+                ]);
+
+                if (!cityRes.ok || !districtRes.ok || !timelineRes.ok) {
+                    throw new Error(`[${year}] 年数据加载失败，请确保服务器已启动`);
+                }
+
+                const [cityData, districtData, timelineResult] = await Promise.all([
+                    cityRes.json(),
+                    districtRes.json(),
+                    timelineRes.json()
+                ]);
+
+                // Validate data structure
+                if (!Array.isArray(cityData) || !Array.isArray(districtData) || !Array.isArray(timelineResult)) {
+                    throw new Error('数据格式错误');
+                }
+
+                citySchools = cityData;
+                districtSchools = districtData;
+                timelineData = timelineResult;
+
+                // Render data
+                renderCitySchools(applyCitySort(citySchools));
+                renderTimeline();
+                // Apply current filter (from dropdown or map click)
+                filterDistrictSchools();
+
+                // Update dashboard if initialized (map container visible)
+                const mapContainer = document.getElementById('mapContainer');
+                if (mapContainer && mapContainer.offsetParent !== null) {
+                    updateDashboard();
+                }
+
+            } catch (error) {
+                console.error('Failed to load data:', error);
+                showError('加载失败: ' + error.message);
+            }
+        }
+
+        // Initialize year selector
+        async function initYearSelector() {
+            const yearSelect = document.getElementById('yearSelect');
+
+            // Detect available years from data directory
+            // For now, hardcode since we don't have server-side directory listing
+            availableYears = ['2025'];
+
+            if (availableYears.length === 0) {
+                yearSelect.innerHTML = '<option value="">无可用数据</option>';
+                return;
+            }
+
+            // Sort descending
+            availableYears.sort((a, b) => b - a);
+            currentYear = availableYears[0];
+
+            yearSelect.innerHTML = availableYears
+                .map(y => `<option value="${y}" ${y === currentYear ? 'selected' : ''}>${y}年</option>`)
+                .join('');
+
+            yearSelect.addEventListener('change', function() {
+                currentYear = this.value;
+                loadData(currentYear);
+                updateHeaderTitle();
+            });
+
+            updateHeaderTitle();
+        }
+
+        // Update header title with current year
+        function updateHeaderTitle() {
+            const h1 = document.querySelector('.header h1');
+            if (h1 && currentYear) {
+                h1.textContent = `${currentYear}年"1+3"培养实验`;
+            }
+        }
+
+        // Update dashboard statistics and map
+        function updateDashboard() {
+            updateStatistics();
+            renderMap();
+        }
+
+        // Update statistics
+        function updateStatistics() {
+            const totalSchools = districtSchools.length;
+            const totalPlan = districtSchools.reduce((sum, s) => sum + (s.plan || 0), 0) +
+                             citySchools.reduce((sum, s) => sum + (s.plan || 0), 0);
+
+            document.getElementById('totalSchools').textContent = totalSchools;
+            document.getElementById('totalPlan').textContent = totalPlan;
+            renderRanking();
+            renderSchoolRanking();
+        }
+
+        // Ranking mode variable
+        let rankingMode = 'school';
+
+        // Switch ranking mode
+        function switchRankingMode(mode) {
+            rankingMode = mode;
+            // Update toggle buttons
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.mode === mode);
+            });
+            renderRanking();
+        }
+
+        // Render ranking list
+        function renderRanking() {
+            const container = document.getElementById('rankingList');
+            if (!container) return;
+
+            // Calculate stats per district
+            const districtStats = {};
+            districtSchools.forEach(school => {
+                const district = school.district || '未知';
+                if (!districtStats[district]) {
+                    districtStats[district] = { count: 0, plan: 0 };
+                }
+                districtStats[district].count++;
+                districtStats[district].plan += school.plan || 0;
+            });
+
+            // Convert to array and sort
+            const sorted = Object.entries(districtStats)
+                .map(([district, stats]) => ({
+                    district,
+                    count: stats.count,
+                    plan: stats.plan
+                }))
+                .sort((a, b) => {
+                    if (rankingMode === 'school') {
+                        return b.count - a.count;
+                    } else {
+                        return b.plan - a.plan;
+                    }
+                });
+
+            if (sorted.length === 0) {
+                container.innerHTML = '<div class="placeholder-text">暂无数据</div>';
+                return;
+            }
+
+            const top10 = sorted.slice(0, 10);
+
+            container.innerHTML = top10.map((item, idx) => `
+                <div class="ranking-item">
+                    <span class="ranking-rank ${idx < 3 ? 'top3' : ''}">${idx + 1}</span>
+                    <span class="ranking-district">${item.district}</span>
+                    <span class="ranking-value">${rankingMode === 'school' ? item.count : item.plan}</span>
+                </div>
+            `).join('');
+        }
+
+        // Render school ranking by enrollment
+        function renderSchoolRanking() {
+            const container = document.getElementById('schoolRankingList');
+            if (!container) return;
+
+            // Combine city and district schools, sort by plan descending
+            const allSchools = [...citySchools, ...districtSchools]
+                .filter(s => s.plan > 0)
+                .sort((a, b) => (b.plan || 0) - (a.plan || 0))
+                .slice(0, 10); // Top 10
+
+            if (allSchools.length === 0) {
+                container.innerHTML = '<div class="placeholder-text">暂无数据</div>';
+                return;
+            }
+
+            container.innerHTML = allSchools.map((school, idx) => `
+                <div class="ranking-item">
+                    <span class="ranking-rank ${idx < 3 ? 'top3' : ''}">${idx + 1}</span>
+                    <span class="ranking-district">${school.name.length > 10 ? school.name.substring(0, 10) + '...' : school.name}</span>
+                    <span class="ranking-value">${school.plan}</span>
+                </div>
+            `).join('');
+        }
+
+        // Render ECharts map
+        async function renderMap() {
+            const container = document.getElementById('mapContainer');
+            if (!container) return;
+
+            // Check if already initialized
+            if (!mapChart) {
+                mapChart = echarts.init(container);
+            }
+
+            // Count schools per district
+            const districtCount = {};
+            districtSchools.forEach(school => {
+                const district = school.district || '未知';
+                districtCount[district] = (districtCount[district] || 0) + 1;
+            });
+
+            // Find max for color scaling
+            const maxCount = Math.max(...Object.values(districtCount), 1);
+
+            // GeoJSON URL for Beijing districts
+            const geoJsonUrl = 'https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json';
+
+            try {
+                const response = await fetch(geoJsonUrl);
+                if (!response.ok) throw new Error('GeoJSON load failed');
+                const geoJson = await response.json();
+
+                // Register map
+                echarts.registerMap('beijing', geoJson);
+
+                // Prepare map data (filter out entries with empty geoName)
+                const mapData = Object.entries(districtNameMap)
+                    .filter(([jsonName, geoName]) => geoName)
+                    .map(([jsonName, geoName]) => {
+                        const count = districtCount[jsonName] || 0;
+                        return { name: geoName, value: count };
+                    });
+
+                // Set map options
+                const option = {
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: function(params) {
+                            if (params.data) {
+                                return `${params.name}<br/>学校数量: ${params.data.value}`;
+                            }
+                            return params.name;
+                        }
+                    },
+                    visualMap: {
+                        min: 0,
+                        max: maxCount,
+                        text: ['高', '低'],
+                        realtime: false,
+                        calculable: true,
+                        inRange: {
+                            color: ['#e0f3f8', '#abd9e9', '#74add1', '#4575b4', '#313695']
+                        },
+                        textStyle: {
+                            color: '#666'
+                        },
+                        left: 'left',
+                        bottom: '20'
+                    },
+                    series: [{
+                        name: '学校数量',
+                        type: 'map',
+                        map: 'beijing',
+                        roam: false,
+                        label: {
+                            show: true,
+                            fontSize: 10,
+                            color: '#ffffff',
+                            textShadowColor: 'rgba(0, 0, 0, 0.8)',
+                            textShadowBlur: 2,
+                            textShadowOffsetX: 1,
+                            textShadowOffsetY: 1
+                        },
+                        emphasis: {
+                            label: {
+                                show: true,
+                                color: '#333',
+                                fontSize: 12,
+                                fontWeight: 'bold'
+                            },
+                            itemStyle: {
+                                areaColor: '#ffd700'
+                            }
+                        },
+                        select: {
+                            disabled: false
+                        },
+                        data: mapData
+                    }]
+                };
+
+                mapChart.setOption(option);
+
+                // Add click handler
+                mapChart.off('click');
+                mapChart.on('click', function(params) {
+                    if (params.name) {
+                        // Find corresponding district in our data
+                        const reverseMap = {};
+                        for (const [key, value] of Object.entries(districtNameMap)) {
+                            if (value) reverseMap[value] = key;
+                        }
+                        const districtKey = reverseMap[params.name];
+                        if (districtKey) {
+                            selectDistrictFromMap(districtKey);
+                        }
+                    }
+                });
+
+                // Handle resize
+                window.removeEventListener('resize', handleMapResize);
+                window.addEventListener('resize', handleMapResize);
+
+            } catch (error) {
+                console.error('Map render error:', error);
+                container.innerHTML = '<div class="no-data-hint">地图数据加载失败<br><small>' + error.message + '</small></div>';
+            }
+        }
+
+        function handleMapResize() {
+            if (mapChart) {
+                mapChart.resize();
+            }
+        }
+
+        // Select district from map click
+        function selectDistrictFromMap(district) {
+            // If clicking same district, toggle off
+            if (selectedDistrict === district) {
+                selectedDistrict = null;
+                document.getElementById('districtSelect').value = '';
+            } else {
+                selectedDistrict = district;
+                // Only update dropdown if the district is a valid option
+                const dropdown = document.getElementById('districtSelect');
+                const options = Array.from(dropdown.options).map(o => o.value);
+                if (options.includes(district)) {
+                    dropdown.value = district;
+                }
+            }
+
+            // Apply filter
+            filterDistrictSchools();
+
+            // Switch to district tab
+            switchTab('district');
+        }
+
+        // Switch tab programmatically
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Initialize year selector first
+            await initYearSelector();
+            // Then load data
+            loadData(currentYear);
+
+            document.getElementById('searchInput').addEventListener('input', filterDistrictSchools);
+            document.getElementById('districtSelect').addEventListener('change', function() {
+                // Clear map selection when dropdown changes manually
+                selectedDistrict = null;
+                filterDistrictSchools();
+            });
+            document.getElementById('citySearchInput').addEventListener('input', filterCitySchools);
+        });
+    </script>
+</body>
+</html>

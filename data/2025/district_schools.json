@@ -1,0 +1,680 @@
+[
+  {
+    "district": "东城区",
+    "name": "北京市第二十四中学",
+    "plan": 45,
+    "website": "http://www.bj24.com.cn/"
+  },
+  {
+    "district": "东城区",
+    "name": "北京市第二十七中学",
+    "plan": 30,
+    "website": "http://www.bj27zx.com/"
+  },
+  {
+    "district": "东城区",
+    "name": "北京市第五十四中学",
+    "plan": 30,
+    "website": "http://www.bj54zx.cn/"
+  },
+  {
+    "district": "东城区",
+    "name": "北京市第六十五中学",
+    "plan": 30,
+    "website": "http://bjsd65zx.lezhiyun.com/"
+  },
+  {
+    "district": "东城区",
+    "name": "北京市第一二五中学（北京汇文实验中学）",
+    "plan": 40,
+    "website": "http://www.huiwen.edu.cn/"
+  },
+  {
+    "district": "东城区",
+    "name": "北京市第一四二中学（北京宏志中学）",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "西城区",
+    "name": "北京市第七中学",
+    "plan": 30,
+    "website": "http://www.bj7z.com/"
+  },
+  {
+    "district": "西城区",
+    "name": "北京市第一五六中学",
+    "plan": 40,
+    "website": "http://bj156.xchjw.cn/"
+  },
+  {
+    "district": "西城区",
+    "name": "北京市育才学校",
+    "plan": 40,
+    "website": "http://bjyucai.com.cn/"
+  },
+  {
+    "district": "西城区",
+    "name": "北京市西城外国语学校",
+    "plan": 40,
+    "website": "http://www.bflsedu.cn/"
+  },
+  {
+    "district": "西城区",
+    "name": "北京师范大学亚太实验学校",
+    "plan": 40,
+    "website": "https://www.yataischool.net/"
+  },
+  {
+    "district": "朝阳区",
+    "name": "中国传媒大学附属中学（北京中学传媒分校）",
+    "plan": 120,
+    "website": "http://www.cmdxfz.com/"
+  },
+  {
+    "district": "朝阳区",
+    "name": "中国科学院附属实验学校",
+    "plan": 65,
+    "website": "http://www.esacas.com/"
+  },
+  {
+    "district": "朝阳区",
+    "name": "中央美术学院附属实验学校",
+    "plan": 60,
+    "website": "http://www.ymfssy.com/"
+  },
+  {
+    "district": "朝阳区",
+    "name": "北京第二外国语学院附属中学（北京中学外语分校）",
+    "plan": 80,
+    "website": "http://ewfz.bjchyedu.cn/"
+  },
+  {
+    "district": "朝阳区",
+    "name": "清华大学附属中学望京学校",
+    "plan": 40,
+    "website": "http://qhfzwjxx.bjchyedu.cn/"
+  },
+  {
+    "district": "朝阳区",
+    "name": "北京市第二中学朝阳学校",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "朝阳区",
+    "name": "北京中学科技分校",
+    "plan": 60,
+    "website": "http://www.beijingacademy.com.cn/"
+  },
+  {
+    "district": "朝阳区",
+    "name": "北京市第八十中学睿德分校",
+    "plan": 40,
+    "website": "http://80rd.bjchyedu.cn/"
+  },
+  {
+    "district": "朝阳区",
+    "name": "清华大学附属中学广华学校",
+    "plan": 40,
+    "website": "http://qhfzgh.bjchyedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "清华大学附属实验学校",
+    "plan": 40,
+    "website": "https://www.thues.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "人大附中航天城学校",
+    "plan": 40,
+    "website": "https://rdfzhtcxx.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "清华大学附属中学永丰学校",
+    "plan": 80,
+    "website": "https://www.qhfzyf.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京中法实验学校",
+    "plan": 80,
+    "website": "https://zfsyxx.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "人大附中西山学校",
+    "plan": 100,
+    "website": "https://rdfzxsxx.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "首都师范大学附属育新学校",
+    "plan": 120,
+    "website": "http://www.yuxinschool.com.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京大学附属中学北医分校",
+    "plan": 90,
+    "website": "https://byfz.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京市第一〇一中学温泉校区",
+    "plan": 120,
+    "website": "https://www.beijing101.com/"
+  },
+  {
+    "district": "海淀区",
+    "name": "中国人民大学附属中学分校",
+    "plan": 40,
+    "website": "https://rdfzfx.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "清华附中志新学校",
+    "plan": 120,
+    "website": "https://qhfzzx.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京市中关村中学知春分校",
+    "plan": 45,
+    "website": "https://zgczxzcfx.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京师范大学第三附属中学",
+    "plan": 110,
+    "website": "http://www.hd123z.bjedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京市海淀实验中学",
+    "plan": 120,
+    "website": "http://hdsyzx.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "首都师范大学第二附属中学",
+    "plan": 80,
+    "website": "https://shdefz.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京市第五十七中学",
+    "plan": 170,
+    "website": "http://www.57class.net/"
+  },
+  {
+    "district": "海淀区",
+    "name": "中国人民大学附属中学翠微学校",
+    "plan": 110,
+    "website": "https://rdfzcwxx.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京市育英中学",
+    "plan": 160,
+    "website": "https://yyzx.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京市第二十中学新都校区",
+    "plan": 80,
+    "website": "https://www.bj20zx.com/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京市海淀区教师进修附属实验香山分校",
+    "plan": 40,
+    "website": "https://jxsyxsfx.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京外国语大学附属中学",
+    "plan": 60,
+    "website": "https://bwfz.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "清华附中学院路学校",
+    "plan": 30,
+    "website": "https://qhfzxylxx.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京市玉渊潭中学",
+    "plan": 120,
+    "website": "https://yytzx.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京外国语大学附属外国语学校",
+    "plan": 120,
+    "website": "http://www.bwfx.com.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京一零一中石油分校",
+    "plan": 40,
+    "website": "https://101syfx.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京市建华实验学校",
+    "plan": 120,
+    "website": "https://jhsyxx.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京实验学校（海淀）",
+    "plan": 110,
+    "website": "https://bjsyxxhd.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京十一实验中学",
+    "plan": 40,
+    "website": "https://sysyzx.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京交通大学附属中学东校区",
+    "plan": 80,
+    "website": "http://jdfz.bjhdedu.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "北京市八一学校附属玉泉中学",
+    "plan": 65,
+    "website": "http://www.bayiyuquan.cn/"
+  },
+  {
+    "district": "海淀区",
+    "name": "首都师范大学附属中学第一分校",
+    "plan": 40,
+    "website": "https://ssdfzyfx.bjhdedu.cn/"
+  },
+  {
+    "district": "丰台区",
+    "name": "北京教育学院附属丰台实验学校",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "丰台区",
+    "name": "北京市丰台区第八中学",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "丰台区",
+    "name": "北京市赵登禹学校",
+    "plan": 30,
+    "website": "未知"
+  },
+  {
+    "district": "丰台区",
+    "name": "中央民族大学附属中学丰台实验学校",
+    "plan": 30,
+    "website": "未知"
+  },
+  {
+    "district": "丰台区",
+    "name": "北京十一学校中堂实验学校",
+    "plan": 20,
+    "website": "未知"
+  },
+  {
+    "district": "丰台区",
+    "name": "北京市丰台区外国语学校",
+    "plan": 70,
+    "website": "未知"
+  },
+  {
+    "district": "丰台区",
+    "name": "北京市第十八中学蒲芳学校",
+    "plan": 70,
+    "website": "未知"
+  },
+  {
+    "district": "丰台区",
+    "name": "北京市大成学校",
+    "plan": 35,
+    "website": "未知"
+  },
+  {
+    "district": "丰台区",
+    "name": "首都经济贸易大学附属中学",
+    "plan": 30,
+    "website": "未知"
+  },
+  {
+    "district": "丰台区",
+    "name": "首都师范大学附属云岗中学",
+    "plan": 60,
+    "website": "未知"
+  },
+  {
+    "district": "丰台区",
+    "name": "北京第五实验学校",
+    "plan": 110,
+    "website": "未知"
+  },
+  {
+    "district": "丰台区",
+    "name": "北京十中晓月苑分校",
+    "plan": 30,
+    "website": "未知"
+  },
+  {
+    "district": "石景山区",
+    "name": "人大附中石景山学校",
+    "plan": 80,
+    "website": "未知"
+  },
+  {
+    "district": "石景山区",
+    "name": "北京市古城中学",
+    "plan": 100,
+    "website": "未知"
+  },
+  {
+    "district": "石景山区",
+    "name": "北京大学附属中学石景山学校",
+    "plan": 120,
+    "website": "未知"
+  },
+  {
+    "district": "石景山区",
+    "name": "北京市十一学校石景山实验中学",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "门头沟区",
+    "name": "北京市大峪中学",
+    "plan": 200,
+    "website": "未知"
+  },
+  {
+    "district": "门头沟区",
+    "name": "首师大附中永定分校",
+    "plan": 150,
+    "website": "未知"
+  },
+  {
+    "district": "门头沟区",
+    "name": "北京八中京西校区",
+    "plan": 160,
+    "website": "未知"
+  },
+  {
+    "district": "门头沟区",
+    "name": "北京景山学校京西实验学校",
+    "plan": 120,
+    "website": "未知"
+  },
+  {
+    "district": "门头沟区",
+    "name": "北京八中永定实验学校",
+    "plan": 120,
+    "website": "未知"
+  },
+  {
+    "district": "房山区",
+    "name": "北京理工大学附属实验学校",
+    "plan": 80,
+    "website": "未知"
+  },
+  {
+    "district": "房山区",
+    "name": "北京师范大学良乡附属中学",
+    "plan": 70,
+    "website": "未知"
+  },
+  {
+    "district": "房山区",
+    "name": "北京四中房山分校",
+    "plan": 30,
+    "website": "未知"
+  },
+  {
+    "district": "房山区",
+    "name": "首都师范大学附属中学实验学校",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "通州区",
+    "name": "首都师范大学附属中学（通州校区）",
+    "plan": 80,
+    "website": "未知"
+  },
+  {
+    "district": "通州区",
+    "name": "北京市通州区运河中学",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "通州区",
+    "name": "北京市通州区潞河中学",
+    "plan": 90,
+    "website": "未知"
+  },
+  {
+    "district": "通州区",
+    "name": "北京理工大学附属中学通州校区",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "通州区",
+    "name": "北京市第二中学通州校区",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "通州区",
+    "name": "北京学校",
+    "plan": 60,
+    "website": "未知"
+  },
+  {
+    "district": "通州区",
+    "name": "北京第一实验中学",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "顺义区",
+    "name": "北京市第四中学顺义分校",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "顺义区",
+    "name": "北京市顺义牛栏山第一中学",
+    "plan": 130,
+    "website": "未知"
+  },
+  {
+    "district": "顺义区",
+    "name": "北京市顺义区杨镇第一中学",
+    "plan": 48,
+    "website": "未知"
+  },
+  {
+    "district": "顺义区",
+    "name": "北京市顺义区第一中学",
+    "plan": 120,
+    "website": "未知"
+  },
+  {
+    "district": "顺义区",
+    "name": "北京市顺义区第九中学",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "顺义区",
+    "name": "北京师范大学附属实验中学顺义学校",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "昌平区",
+    "name": "北京市昌平区第一中学",
+    "plan": 140,
+    "website": "未知"
+  },
+  {
+    "district": "昌平区",
+    "name": "北京市昌平区第二中学",
+    "plan": 140,
+    "website": "未知"
+  },
+  {
+    "district": "昌平区",
+    "name": "北京市昌平区前锋学校",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "昌平区",
+    "name": "首都师范大学附属回龙观育新学校",
+    "plan": 120,
+    "website": "未知"
+  },
+  {
+    "district": "昌平区",
+    "name": "首都师范大学附属中学昌平学校",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "昌平区",
+    "name": "北京师范大学第二附属中学未来科学城学校",
+    "plan": 80,
+    "website": "未知"
+  },
+  {
+    "district": "大兴区",
+    "name": "北京市大兴区第一中学",
+    "plan": 120,
+    "website": "未知"
+  },
+  {
+    "district": "大兴区",
+    "name": "北京市第八中学大兴分校",
+    "plan": 60,
+    "website": "未知"
+  },
+  {
+    "district": "大兴区",
+    "name": "北京市大兴区兴华中学",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "大兴区",
+    "name": "清华附中大兴学校",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "平谷区",
+    "name": "北京市平谷中学",
+    "plan": 96,
+    "website": "未知"
+  },
+  {
+    "district": "怀柔区",
+    "name": "北京市怀柔区第一中学",
+    "plan": 48,
+    "website": "未知"
+  },
+  {
+    "district": "怀柔区",
+    "name": "首都师范大学附属红螺寺中学",
+    "plan": 38,
+    "website": "未知"
+  },
+  {
+    "district": "怀柔区",
+    "name": "北京市第一〇一中学怀柔分校",
+    "plan": 80,
+    "website": "未知"
+  },
+  {
+    "district": "怀柔区",
+    "name": "北京市怀柔区第二中学",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "密云区",
+    "name": "北京市密云区第二中学",
+    "plan": 90,
+    "website": "未知"
+  },
+  {
+    "district": "密云区",
+    "name": "北京师范大学密云实验中学",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "延庆区",
+    "name": "北京市延庆区第一中学",
+    "plan": 120,
+    "website": "未知"
+  },
+  {
+    "district": "延庆区",
+    "name": "北京市八一实验学校",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "燕山",
+    "name": "北京师范大学燕化附属中学",
+    "plan": 25,
+    "website": "未知"
+  },
+  {
+    "district": "经开区",
+    "name": "人大附中亦庄新城学校",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "经开区",
+    "name": "人大附中北京经济技术开发区学校",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "经开区",
+    "name": "北京亦庄实验中学",
+    "plan": 40,
+    "website": "未知"
+  },
+  {
+    "district": "经开区",
+    "name": "北京市建华实验亦庄学校",
+    "plan": 25,
+    "website": "未知"
+  },
+  {
+    "district": "经开区",
+    "name": "北京市第二中学经开区学校",
+    "plan": 40,
+    "website": "未知"
+  }
+]

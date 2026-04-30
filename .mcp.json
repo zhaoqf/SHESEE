@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "MiniMax": {
+      "command": "uvx",
+      "args": ["minimax-coding-plan-mcp", "-y"],
+      "env": {
+        "MINIMAX_API_KEY": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJHcm91cE5hbWUiOiJ6aGFvcWYiLCJVc2VyTmFtZSI6InpoYW9xZiIsIkFjY291bnQiOiIiLCJTdWJqZWN0SUQiOiIyMDA0MTAzODA1NDYwODE2NDQyIiwiUGhvbmUiOiIxMzI2NDM1OTI5NiIsIkdyb3VwSUQiOiIyMDA0MTAzODA1NDUyNDI3ODM0IiwiUGFnZU5hbWUiOiIiLCJNYWlsIjoiIiwiQ3JlYXRlVGltZSI6IjIwMjUtMTItMjYgMTI6MDU6MjciLCJUb2tlblR5cGUiOjQsImlzcyI6Im1pbmltYXgifQ.Hg3AIPsY2WMT7MgwtOSYI0lUnozFV33vXl7IN2MSC-4DX-gzCQIt-SRWs3ha6y-9-Cbban9P3wo27QiVqQW3-EoI0myXbtmsFb70OE3Tfa3ReUoe4uH8l-pvMB4FC0-Gi_mIh5XNkdWbgf_ZZdNhvUA14gALiMWZIeSs0U-EOmivKhX1X088ieyww5EmrWYZz48ai0qh1F6wF8KmZBFIa7MEvTHgftzbqG0DHU0NltS13w8yDvexigU0-TtadfuWE4L2_uDC7Quo54OkX5sGnNptF2y2Emit4Y6UJszSCOi5YTnwdLbvsyZfEdUd-uBAm9epz4EGdWp76n9SrzD8XQ",
+        "MINIMAX_API_HOST": "https://api.minimaxi.com"
+      }
+    }
+  }
+}
