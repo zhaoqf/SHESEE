@@ -1647,13 +1647,9 @@
             // Then load data
             loadData(currentYear);
 
-            document.getElementById('searchInput').addEventListener('input', filterDistrictSchools);
-            document.getElementById('districtSelect').addEventListener('change', function() {
-                // Clear map selection when dropdown changes manually
-                selectedDistrict = null;
-                filterDistrictSchools();
-            });
-            document.getElementById('citySearchInput').addEventListener('input', filterCitySchools);
+            document.getElementById('experimentalSearchInput').addEventListener('input', filterSchools);
+            document.getElementById('levelSelect').addEventListener('change', filterSchools);
+            document.getElementById('experimentalDistrictSelect').addEventListener('change', filterSchools);
         });
     </script>
 </body>
