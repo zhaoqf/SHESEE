@@ -1292,15 +1292,13 @@
 
         // Show loading state
         function showLoading() {
-            document.getElementById('citySchools').innerHTML = '<tr><td colspan="4" style="text-align:center;padding:40px;color:#888;">加载中...</td></tr>';
-            document.getElementById('districtSchools').innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;color:#888;">加载中...</td></tr>';
+            document.getElementById('experimentalSchools').innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:#888;">加载中...</td></tr>';
             document.getElementById('timelineContent').innerHTML = '<div style="text-align:center;padding:40px;color:#888;">加载中...</div>';
         }
 
         // Show error state
         function showError(message) {
-            document.getElementById('citySchools').innerHTML = `<tr><td colspan="4" style="text-align:center;padding:40px;color:#e74c3c;">${message}</td></tr>`;
-            document.getElementById('districtSchools').innerHTML = `<tr><td colspan="5" style="text-align:center;padding:40px;color:#e74c3c;">${message}</td></tr>`;
+            document.getElementById('experimentalSchools').innerHTML = `<tr><td colspan="7" style="text-align:center;padding:40px;color:#e74c3c;">${message}</td></tr>`;
             document.getElementById('timelineContent').innerHTML = `<div style="text-align:center;padding:40px;color:#e74c3c;">${message}</div>`;
         }
 
