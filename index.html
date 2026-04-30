@@ -1631,20 +1631,21 @@
             // If clicking same district, toggle off
             if (selectedDistrict === district) {
                 selectedDistrict = null;
-                document.getElementById('districtSelect').value = '';
+                document.getElementById('experimentalDistrictSelect').value = '';
             } else {
                 selectedDistrict = district;
                 // Only update dropdown if the district is a valid option
-                const dropdown = document.getElementById('districtSelect');
+                const dropdown = document.getElementById('experimentalDistrictSelect');
                 const options = Array.from(dropdown.options).map(o => o.value);
                 if (options.includes(district)) {
                     dropdown.value = district;
                 }
             }
 
+            // Switch to experimental tab
+            switchTab('experimental');
             // Apply filter
             filterSchools();
-            // Note: experimental tab is not activated by default per design
         }
 
         // Switch tab programmatically
