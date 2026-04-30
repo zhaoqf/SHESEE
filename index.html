@@ -1335,7 +1335,7 @@
                 districtSchools = districtData.map(s => ({ ...s, level: 'district' }));
 
                 // 合并后的数据数组（用于统一渲染）
-                window.allSchools = [...citySchools, ...districtSchools];
+                allSchools = [...citySchools, ...districtSchools];
                 timelineData = timelineResult;
 
                 // Render data
