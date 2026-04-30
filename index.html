@@ -1108,7 +1108,7 @@
                     <td>${school.district || '-'}</td>
                     <td>${school.name}</td>
                     <td>${school.plan || '-'}</td>
-                    <td>${school.website ? `<a href="${school.website}" target="_blank">访问</a>` : '-'}</td>
+                    <td>${school.website && school.website !== '未知' ? `<a href="${school.website}" target="_blank" rel="noopener" class="website-link">${school.website}</a>` : '未知'}</td>
                     <td><button class="edit-btn" onclick="openEditModal('${school.name}', '${school.level}')">编辑</button></td>
                 </tr>`;
             }).join('');
