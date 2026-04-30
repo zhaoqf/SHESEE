@@ -1,8 +1,8 @@
-# 区级与市级试验学校模块合并实施计划
+# 区级与市级实验学校模块合并实施计划
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 将"区级实验学校"和"市级试验学校"两个独立Tab合并为一个"试验学校"模块
+**Goal:** 将"区级实验学校"和"市级试验学校"两个独立Tab合并为一个"实验学校"模块
 
 **Architecture:** 纯前端SPA，代码全在 `index.html`。合并后共用同一套渲染/筛选/排序逻辑，通过 `level` 字段区分数据来源，数据仍分离存储在各自的JSON文件中。
 
@@ -60,7 +60,7 @@ window.allSchools = [...citySchools, ...districtSchools];
 <button class="tab-btn" data-tab="district">区级实验学校</button>
 <button class="tab-btn" data-tab="city">市级试验学校</button>
 -->
-<button class="tab-btn" data-tab="experimental">试验学校</button>
+<button class="tab-btn" data-tab="experimental">实验学校</button>
 ```
 
 - [ ] **Step 2: 合并两个Tab内容区为一个**
@@ -72,7 +72,7 @@ window.allSchools = [...citySchools, ...districtSchools];
 <!-- 原有: <div class="tab-content" id="district">...</div> 和 <div class="tab-content" id="city">...</div> -->
 
 <div class="tab-content" id="experimental">
-    <h2 class="section-title">试验学校</h2>
+    <h2 class="section-title">实验学校</h2>
 
     <div class="filter-bar">
         <div class="search-box">
@@ -390,7 +390,7 @@ document.getElementById('experimentalDistrictSelect').addEventListener('change',
 
 - [ ] **Step 1: 验证Tab切换**
 
-点击"试验学校"Tab，验证默认不激活（首次加载时不显示）
+点击"实验学校"Tab，验证默认不激活（首次加载时不显示）
 
 - [ ] **Step 2: 验证数据加载**
 
